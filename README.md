@@ -27,6 +27,10 @@ Just to gain an oversight of what is going on
 * Probably need to use the Digital I/O parts to get the values to the LED
 * I just found the [C8051F340.h](C8051F340.h) which is the default lib for the SFR [Source](https://github.com/darconeous/sdcc/blob/master/device/include/mcs51/C8051F340.h)definitions
 
+# Block diagram
+
+![block](BlockDiagram.png)
+
 # Pin config
 
 ![pins](index.png)
