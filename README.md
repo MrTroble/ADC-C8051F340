@@ -13,19 +13,23 @@ Just to gain an oversight of what is going on
    * Locks analog signal for a time x
 * [Window detector](https://en.wikipedia.org/wiki/Window_detector) (programmable)
    * Checks if an input is between 2 refrence threshold voltages
-* AMX0N Registrys for negative input AMUX (0 to 4 regs -> 5bit)
+* `AMX0N` Registrys for negative input AMUX (0 to 4 regs -> 5bit)
    * Properties for negative AMUX
    * See SFR Definition 5.2
-* AMX0P Registrys for positive input AMUX (0 to 4 regs -> 5bit)
+* `AMX0P` Registrys for positive input AMUX (0 to 4 regs -> 5bit)
    * Properties for positive AMUX
    * See SFR Definition 5.1
 
 # Thoughts
 
-* Leave AMX0P/N at the reset value of 0 and take P1.0 (e.g. Pin 46) for input
+* Leave `AMX0P/N` at the reset value of 0 and take P1.0 (e.g. Pin 46) for input
    * Don't want to use the mux bc I only have one value e.g. one pin
 * Probably need to use the Digital I/O parts to get the values to the LED
-* I just found the [C8051F340.h](C8051F340.h) which is the default lib for the SFR [Source](https://github.com/darconeous/sdcc/blob/master/device/include/mcs51/C8051F340.h)definitions
+* I just found the [C8051F340.h](C8051F340.h) which is the default lib for the SFR definitions [Source](https://github.com/darconeous/sdcc/blob/master/device/include/mcs51/C8051F340.h)
+* `The ADC0 subsystem is enabled only when the AD0EN bit in the ADC0 Control register (ADC0CN) is set to logic 1` So to enable the ADC I have to set AD0EN (ADC0CN) to 1
+   * ```ADC0CN |= 0x80 // or 128 which is both 1000 0000 bc ADC0CN is 8bit and AD0EN is the highest bit```
+* For the negative input we take the Vref
+* Output after conversion `ADC0H` - `ADC0L`
 
 # Block diagram
 
