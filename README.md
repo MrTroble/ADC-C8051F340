@@ -3,6 +3,9 @@
 Used data sheet for [IC C8051F340](https://www.silabs.com/documents/public/data-sheets/C8051F34x.pdf)<br>
 We want to adc from 0v-5v to a 10bit binary number
 
+[ADC_Try.c](ADC_Try.c) should work if you put your potentiometer to P1.0
+and your reference voltage to Vref!
+
 # Summary of the 10 bit ADC
 
 Just to gain an oversight of what is going on
