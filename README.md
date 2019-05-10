@@ -19,6 +19,9 @@ Just to gain an oversight of what is going on
 * `AMX0P` Registrys for positive input AMUX (0 to 4 regs -> 5bit)
    * Properties for positive AMUX
    * See SFR Definition 5.1
+* `ADC0CN` ADC Config register
+* `ADC0H/L` Output high + low
+   * order changeable trough `AD0LJST` (left/right justification)
 
 # Thoughts
 
@@ -28,8 +31,11 @@ Just to gain an oversight of what is going on
 * I just found the [C8051F340.h](C8051F340.h) which is the default lib for the SFR definitions [Source](https://github.com/darconeous/sdcc/blob/master/device/include/mcs51/C8051F340.h)
 * `The ADC0 subsystem is enabled only when the AD0EN bit in the ADC0 Control register (ADC0CN) is set to logic 1` So to enable the ADC I have to set AD0EN (ADC0CN) to 1
    * ```ADC0CN |= 0x80 // or 128 which is both 1000 0000 bc ADC0CN is 8bit and AD0EN is the highest bit```
-* For the negative input we take the Vref
+* For the negative input we take the GRND for Singel-end mode
+   * Not sure but I thing singel ended is the mode here
+   * bc `REF` should be the reference voltage ?!
 * Output after conversion `ADC0H` - `ADC0L`
+   * Left/Right order justification!
 
 # Block diagram
 
