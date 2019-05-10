@@ -24,6 +24,9 @@ Just to gain an oversight of what is going on
 
 * Leave AMX0P/N at the reset value of 0 and take P1.0 (e.g. Pin 46) for input
    * Don't want to use the mux bc I only have one value e.g. one pin
+* Probably need to use the Digital I/O parts to get the values to the LED
+* I just found the [C8051F340.h](C8051F340.h) which is the default lib for the SFR [Source](https://github.com/darconeous/sdcc/blob/master/device/include/mcs51/C8051F340.h)definitions
+
 # Pin config
 
 ![pins](index.png)
