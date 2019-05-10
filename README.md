@@ -21,7 +21,11 @@ Just to gain an oversight of what is going on
    * See SFR Definition 5.1
 * `ADC0CN` ADC Config register
 * `ADC0H/L` Output high + low
-   * order changeable trough `AD0LJST` (left/right justification)
+   * order changable through `AD0LJST` (left/right justification)
+* `AD0BUSY` trigger
+* `AD0INT` 1 after conversation finsish
+* Should auto use Vref as reference volatage
+   * `REFSL` is set to 0 in `REF0CN` see [Reference Control](https://www.silabs.com/documents/public/data-sheets/C8051F34x.pdf#G8.1026910)
 
 # Thoughts
 
@@ -31,8 +35,8 @@ Just to gain an oversight of what is going on
 * I just found the [C8051F340.h](C8051F340.h) which is the default lib for the SFR definitions [Source](https://github.com/darconeous/sdcc/blob/master/device/include/mcs51/C8051F340.h)
 * `The ADC0 subsystem is enabled only when the AD0EN bit in the ADC0 Control register (ADC0CN) is set to logic 1` So to enable the ADC I have to set AD0EN (ADC0CN) to 1
    * `ADC0CN |= 0x80 // or 128 which is both 1000 0000 bc ADC0CN is 8bit and AD0EN is the highest bit`
-* For the negative input we take the GND for Singel-end mode
-   * Not sure but I think singel ended is the mode here
+* For the negative input we take the GND for Single-end mode
+   * Not sure but I think single ended is the mode here
    * bc `REF` should be the reference voltage ?!
    * `AMX0N` needs to be configured to `‭0x1F‬` or `31`
       * Config of GND is 0001 1111
@@ -41,6 +45,12 @@ Just to gain an oversight of what is going on
    * needs to go to P0 and P3
       * `ADC0H` -> P0.1, P0.0 // High 2 bits
       * `ADC0L` -> P3.7..P3.0 // Low 8 bits
+* We need to constantly trigger the ADC
+   * Use a loop here
+   * use the `AD0BUSY` to trigger conversation
+   * wait on `AD0INT` (is 1 after conversion completion)
+* Keep `AD0CM0-2` 000 to use `AD0BUSY`
+* Push `ADC0H` - `ADC0L` forward to P0.1, P0.0 and P3.7..P3.0
 # Block diagram
 
 ![block](BlockDiagram.png)
